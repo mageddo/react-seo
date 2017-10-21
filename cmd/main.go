@@ -1,0 +1,31 @@
+package main
+
+import (
+	"encoding/json"
+	"net/http"
+	"log"
+)
+
+func main(){
+
+	http.HandleFunc("/students", func(w http.ResponseWriter, r *http.Request) {
+
+		w.Header().Set("Content-Type", "application/json")
+		var students []map[string]interface{}
+		students = append(students, map[string]interface{}{
+			"name": "Elvis",
+			"age": 22,
+		},
+		map[string]interface{}{
+			"name": "Bruna",
+			"age": 21,
+		})
+		if err := json.NewEncoder(w).Encode(students); err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	})
+
+	if err := http.ListenAndServe(":80", nil); err != nil {
+		log.Panicf("Failed to setup the server at port %s", err.Error())
+	}
+}

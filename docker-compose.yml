@@ -1,0 +1,14 @@
+version: '2'
+services:
+  react-seo:
+    container_name: react-seo
+    image: golang:1.9.1
+    volumes:
+      - $PWD:/go/src/github.com/mageddo/react-seo
+    working_dir: /go/src/github.com/mageddo/react-seo
+    command: tail -f /dev/null
+    hostname: react-seo.dev
+  ci-build-test:
+    extends: react-seo
+    container_name: ci-build-test
+    command: go test -v -run . -bench . github.com/mageddo/react-seo/...
