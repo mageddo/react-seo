@@ -11,6 +11,8 @@ func main(){
 	http.HandleFunc("/students", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		
 		students := []map[string]interface{}{}
 
 		genre := r.URL.Query().Get("genre")

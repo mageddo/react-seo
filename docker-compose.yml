@@ -8,6 +8,8 @@ services:
     working_dir: /go/src/github.com/mageddo/react-seo
     command: tail -f /dev/null
     hostname: react-seo.dev
+    ports:
+      - 8181:80
   ci-build-test:
     extends: react-seo
     container_name: ci-build-test
