@@ -17,6 +17,10 @@ class App extends Component {
 		console.debug('app=componentDidMount');
 	}
 
+	loadPage(page){
+		this.setState({page: page})
+	}
+
 	render() {
 		return (
 			<div className="" style={{marginTop: 60}}>
