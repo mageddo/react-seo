@@ -45,6 +45,8 @@ func main(){
 	http.HandleFunc("/schools", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		
 		students := []map[string]interface{}{
 			map[string]interface{}{
 				"name": "Autauga Academy",

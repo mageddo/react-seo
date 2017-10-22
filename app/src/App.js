@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Student from './page/Student.js';
+import Router, {Link} from './router/Router.js';
 import 'bootstrap/dist/css/bootstrap.css';
+
+import Student from './page/Student.js';
+import School from './page/School.js';
 
 class App extends Component {
 
@@ -9,11 +12,20 @@ class App extends Component {
 		this.state = {
 			page: 'Loading...'
 		}
+		Router.register(this);
 		console.debug('app=constructor');
 	}
 
+	load(state){
+		console.debug('m=App.load, state=%o', state);
+		this.setState({page: state.page})
+	}
+
 	componentDidMount(){
-		this.setState({page: <Student />});
+		Router.pushAndLoad({
+			page: <Student />,
+			path: "/students"
+		});
 		console.debug('app=componentDidMount');
 	}
 
@@ -33,25 +45,12 @@ class App extends Component {
 							<span className="icon-bar"></span>
 							<span className="icon-bar"></span>
 						</button>
-						<a className="navbar-brand" href="#">Project name</a>
+						<Link className="navbar-brand" href="/" page={<Student />} >React SEO</Link>
 					</div>
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
-							<li className="active"><a href="#">Home</a></li>
-							<li><a href="#about">About</a></li>
-							<li><a href="#contact">Contact</a></li>
-							<li className="dropdown">
-								<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-								<ul className="dropdown-menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li role="separator" className="divider"></li>
-									<li className="dropdown-header">Nav header</li>
-									<li><a href="#">Separated link</a></li>
-									<li><a href="#">One more separated link</a></li>
-								</ul>
-							</li>
+							<li className="active"><Link href="/students" page={<Student />}>Students</Link></li>
+							<li><Link href="/schools" page={<School />}>Schools</Link></li>
 						</ul>
 					</div>
 				</div>
