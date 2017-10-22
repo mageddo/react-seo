@@ -91,9 +91,9 @@ export default class Router {
 	 */
 	static start(state){
 		if(window.history.state !== null){
-			Router.doLoad(window.history.state);
+			Router.pushAndLoad(window.history.state);
 		}else {
-			Router.doLoad(state);
+			Router.pushAndLoad(state);
 		}
 	}
 

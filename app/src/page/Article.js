@@ -10,7 +10,7 @@ export default class Articles extends Component {
 	}
 
 	componentDidMount(){
-		fetch(`http://jsonplaceholder.typicode.com/posts`)
+		fetch(`//jsonplaceholder.typicode.com/posts`)
 		.then(result => result.json())
 		.then(items => this.setState({items: items}))
 		console.debug('articles=componentDidMount');
