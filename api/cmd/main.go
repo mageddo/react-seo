@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"log"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -88,7 +89,11 @@ func main(){
 		os.Exit(1)
 	}()
 
-	if err := http.ListenAndServe(":80", nil); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "80"
+	}
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil); err != nil {
 		log.Panicf("Failed to setup the server at port %s", err.Error())
 	}
 
