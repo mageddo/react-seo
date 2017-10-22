@@ -5,7 +5,7 @@ services:
     container_name: compiler-api
     image: golang:1.9.1
     volumes:
-      - $PWD:/go/src/github.com/mageddo/react-seo
+      - $PWD/:/go/src/github.com/mageddo/react-seo
       - $PWD/builder:/bin/builder
     working_dir: /go/src/github.com/mageddo/react-seo
     container_name: compiler-api
@@ -16,7 +16,7 @@ services:
     image: node:8.7.0
     command: builder build-app
     volumes:
-      - $PWD/app:/app
+      - $PWD/:/app
       - $PWD/builder:/bin/builder
     working_dir: /app
 

@@ -82,11 +82,12 @@ case $1 in
 
 	build-api )
 
+		BUILD_PATH=$GOPATH/src/github.com/mageddo/react-seo/api/build/
 		echo "> Starting API build"
 
-		rm -rf build/
-		mkdir -p build/
-		go build -v -o build/react-seo
+		rm -rf $BUILD_PATH
+		mkdir -p $BUILD_PATH
+		go build -v -o "$BUILD_PATH/react-seo" github.com/mageddo/react-seo/api/cmd
 
 		echo "> Build success"
 
@@ -96,8 +97,7 @@ case $1 in
 
 		echo "> Starting APP build"
 
-		npm install
-		npm run-script build
+		bash -c 'cd app && npm install && npm run-script build'
 
 		echo "> Build success"
 
