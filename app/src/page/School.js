@@ -9,7 +9,7 @@ export default class School extends Component {
 	}
 
 	componentDidMount(){
-		fetch(`//react-seo.herokuapp.com/api/schools`)
+		fetch(window.Locator.API.solve(`/schools`))
 		.then(result => result.json())
 		.then(items => this.setState({items: items}))
 		console.debug('student=componentDidMount');

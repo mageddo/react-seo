@@ -10,7 +10,7 @@ export default class Articles extends Component {
 	}
 
 	componentDidMount(){
-		fetch(`//jsonplaceholder.typicode.com/posts`)
+		fetch(window.Locator.JSON_REPLACE_HOLDER.solve(`/posts`))
 		.then(result => result.json())
 		.then(items => this.setState({items: items}))
 		console.debug('articles=componentDidMount');
@@ -37,7 +37,7 @@ export class Article extends Component {
 	}
 
 	componentDidMount(){
-		fetch(`//jsonplaceholder.typicode.com/posts/` + this.props.id)
+		fetch(window.Locator.JSON_REPLACE_HOLDER.solve(`/posts/` + this.props.id))
 		.then(result => result.json())
 		.then(items => this.setState({article: items}))
 		console.debug('article=componentDidMount');
