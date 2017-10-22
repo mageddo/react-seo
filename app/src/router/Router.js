@@ -23,8 +23,8 @@ export default class Router {
 	 * Register listeners to be trigered when a new page must be load
 	 * observer - a React.component, the .pushState method will be called when a page must be loaded
 	 */
-	static register(observer){
-		Router.observers.push(observer)
+	static register(observer, map){
+		Router.observers.push({observer: observer, map: map})
 	}
 
 	/**
@@ -63,19 +63,37 @@ export default class Router {
 		// window.document.title = state.title;
 		Router.observers.forEach(o => {
 			console.debug('m=doLoad, status=call-observer, observer=%o', o)
-			o.load(state)
+			var called = Router.invoke(state, o.map);
+			if(o.observer.load !== undefined){
+				o.observer.load(state, called);
+			}
 		})
-
 	}
 
+	/**
+	 * Call the respective function in map if it exists
+	 * The callback will have the state in this variable and the data as parameter
+	 * retuns true if found a handler and false if don't
+	 */
 	static invoke(state, map){
 		if(map[state.page]){
 			console.debug('m=invoke, status=invoking');
-			map[state.page](state.data);
+			map[state.page].call(state, state.data);
 			return true;
 		}else{
 			console.debug('m=invoke, status=not-found');
 			return false;
+		}
+	}
+
+	/**
+	 * Must be called just after page load to load the the current state of the passed if it does not exists
+	 */
+	static start(state){
+		if(window.history.state !== null){
+			Router.doLoad(window.history.state);
+		}else {
+			Router.doLoad(state);
 		}
 	}
 

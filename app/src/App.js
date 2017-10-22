@@ -12,35 +12,33 @@ class App extends Component {
 		this.state = {
 			page: 'Loading...'
 		}
-		Router.register(this);
-		console.debug('app=constructor');
-	}
-
-	load(state){
-		console.debug('m=App.load, state=%o', state);
-		Router.invoke(state, {
-			'Student': (data) => {
+		Router.register(this, {
+			'Student': (state) => {
 				this.setState({page: <Student />})
 			},
-			'School': (data) => {
+			'School': (state) => {
 				this.setState({page: <School />})
 			},
 			'StudentDetails': (data) => {
 				this.setState({page: <StudentDetails student={data} />})
 			}
 		});
+		console.debug('app=constructor');
+	}
+
+	/**
+	 * Router try to invoke the right handler then call this method to reponse a feedback
+	 */ 
+	load(state, loaded){
+		console.debug('m=App.load, state=%o, loaded=%s', state, loaded);
 	}
 
 	componentDidMount(){
 		console.debug('app=componentDidMount, state=%o', window.history.state);
-		if(window.history.state !== null){
-			Router.doLoad(window.history.state);
-		}else {
-			Router.doLoad({
-				page: "Student",
-				path: "/students"
-			});
-		}
+		Router.start({
+			page: "Student",
+			path: "/students"
+		});
 	}
 
 	loadPage(page){
