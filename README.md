@@ -26,3 +26,10 @@ APP
 
 	$ docker exec -it bash
 	cd app && npm install && npm start
+
+#### Running it in heroku
+
+	heroku git:remote -a react-seo
+	heroku login
+	heroku container:login
+	heroku container:push web
