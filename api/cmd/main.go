@@ -11,8 +11,12 @@ import (
 
 func main(){
 
-	http.Handle("/", http.FileServer(http.Dir("./public")))
-	http.HandleFunc("/students", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/", func(res http.ResponseWriter, req *http.Request){
+		log.Printf("m=/, path=%s", req.URL.Path)
+		http.FileServer(http.Dir("./public")).ServeHTTP(res, req)
+	})
+
+	http.HandleFunc("/api/students", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -46,7 +50,7 @@ func main(){
 		}
 	})
 
-	http.HandleFunc("/schools", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/schools", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
