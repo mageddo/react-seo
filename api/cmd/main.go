@@ -4,11 +4,14 @@ import (
 	"encoding/json"
 	"net/http"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main(){
-	http.Handle("/", http.FileServer(http.Dir("./public")))
 
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 	http.HandleFunc("/students", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "application/json")
@@ -63,7 +66,22 @@ func main(){
 		}
 	})
 
+	sigc := make(chan os.Signal, 1)
+	signal.Notify(sigc,
+		syscall.SIGHUP,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		log.Printf("m=exit, before")
+		s := <-sigc
+		log.Printf("m=exit, msg=%v", s)
+		os.Exit(1)
+	}()
+
 	if err := http.ListenAndServe(":80", nil); err != nil {
 		log.Panicf("Failed to setup the server at port %s", err.Error())
 	}
+
+
 }

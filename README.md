@@ -2,7 +2,7 @@ This is a POC to test if react apps based in rest services are indexing at googl
 
 #### Building the docker image
 
-	docker-compose up --abort-on-container-exit compiler-app compiler-api && docker-compose --abort-on-container-exit build build
+	docker-compose up compiler-app && docker-compose up compiler-api && docker-compose build build
 
 #### Developing
 
