@@ -20,8 +20,7 @@ export default class Student extends Component {
 		return (
 			<ul>{
 				this.state.students.map((v, k) => {
-					// return <li></li>
-					return <li key={k} ><Link page={<StudentDetails student={v} />} href={"/student/" + v.name}>{v.name}</Link></li>
+					return <li key={k} ><Link page="StudentDetails" data={v} href={"/student/" + v.name}>{v.name}</Link></li>
 				})
 			}</ul>
 		)
@@ -30,7 +29,7 @@ export default class Student extends Component {
 }
 
 
-class StudentDetails extends Component {
+export class StudentDetails extends Component {
 
 	constructor(props){
 		super();

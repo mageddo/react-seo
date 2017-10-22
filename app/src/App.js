@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Router, {Link} from './router/Router.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Student from './page/Student.js';
+import Student, {StudentDetails} from './page/Student.js';
 import School from './page/School.js';
 
 class App extends Component {
@@ -18,15 +18,29 @@ class App extends Component {
 
 	load(state){
 		console.debug('m=App.load, state=%o', state);
-		this.setState({page: state.page})
+		Router.invoke(state, {
+			'Student': (data) => {
+				this.setState({page: <Student />})
+			},
+			'School': (data) => {
+				this.setState({page: <School />})
+			},
+			'StudentDetails': (data) => {
+				this.setState({page: <StudentDetails student={data} />})
+			}
+		});
 	}
 
 	componentDidMount(){
-		Router.pushAndLoad({
-			page: <Student />,
-			path: "/students"
-		});
-		console.debug('app=componentDidMount');
+		console.debug('app=componentDidMount, state=%o', window.history.state);
+		if(window.history.state !== null){
+			Router.doLoad(window.history.state);
+		}else {
+			Router.doLoad({
+				page: "Student",
+				path: "/students"
+			});
+		}
 	}
 
 	loadPage(page){
@@ -45,12 +59,12 @@ class App extends Component {
 							<span className="icon-bar"></span>
 							<span className="icon-bar"></span>
 						</button>
-						<Link className="navbar-brand" href="/" page={<Student />} >React SEO</Link>
+						<Link className="navbar-brand" href="/" page="Student" >React SEO</Link>
 					</div>
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
-							<li className="active"><Link href="/students" page={<Student />}>Students</Link></li>
-							<li><Link href="/schools" page={<School />}>Schools</Link></li>
+							<li className="active"><Link href="/students" page="Student" >Students</Link></li>
+							<li><Link href="/schools" page="School" >Schools</Link></li>
 						</ul>
 					</div>
 				</div>
