@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import Student, {StudentDetails} from './page/Student.js';
 import School from './page/School.js';
+import Articles, {Article} from './page/Article.js';
 
 class App extends Component {
 
@@ -21,6 +22,12 @@ class App extends Component {
 			},
 			'StudentDetails': (data) => {
 				this.setState({page: <StudentDetails student={data} />})
+			},
+			'Articles': (data) => {
+				this.setState({page: <Articles />})
+			},
+			'Article': (data) => {
+				this.setState({page: <Article id={data.id} />})
 			}
 		});
 		console.debug('app=constructor');
@@ -63,6 +70,7 @@ class App extends Component {
 						<ul className="nav navbar-nav">
 							<li className="active"><Link href="/students" page="Student" >Students</Link></li>
 							<li><Link href="/schools" page="School" >Schools</Link></li>
+							<li><Link href="/posts" page="Articles" >Posts</Link></li>
 						</ul>
 					</div>
 				</div>
