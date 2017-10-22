@@ -37,7 +37,7 @@ export class Article extends Component {
 	}
 
 	componentDidMount(){
-		fetch(`http://jsonplaceholder.typicode.com/posts/` + this.props.id)
+		fetch(`//jsonplaceholder.typicode.com/posts/` + this.props.id)
 		.then(result => result.json())
 		.then(items => this.setState({article: items}))
 		console.debug('article=componentDidMount');
