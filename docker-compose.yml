@@ -1,16 +1,45 @@
 version: '2'
 services:
-  react-seo:
-    container_name: react-seo
+
+  compiler-api:
+    container_name: compiler-api
     image: golang:1.9.1
     volumes:
       - $PWD:/go/src/github.com/mageddo/react-seo
+      - $PWD/builder:/bin/builder
     working_dir: /go/src/github.com/mageddo/react-seo
+    container_name: compiler-api
+    command: builder build-api
+
+  compiler-app:
+    container_name: compiler-app
+    image: node:8.7.0
+    command: builder build-app
+    volumes:
+      - $PWD/app:/app
+      - $PWD/builder:/bin/builder
+    working_dir: /app
+
+  build: 
+    container_name: build
+    build:
+      context: .
+    image: defreitas/react-seo:1.0
+
+  react-seo-api:
+    extends: compiler-api
+    container_name: react-seo-api
     command: tail -f /dev/null
     hostname: react-seo.dev
     ports:
       - 8181:80
+
+  react-seo-app:
+    extends: compiler-app
+    container_name: react-seo-api
+    command: tail -f /dev/null
+
   ci-build-test:
-    extends: react-seo
+    extends: compiler-api
     container_name: ci-build-test
     command: go test -v -run . -bench . github.com/mageddo/react-seo/...

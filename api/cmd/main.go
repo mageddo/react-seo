@@ -7,6 +7,7 @@ import (
 )
 
 func main(){
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 
 	http.HandleFunc("/students", func(w http.ResponseWriter, r *http.Request) {
 
