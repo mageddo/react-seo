@@ -4,6 +4,11 @@ This is a POC to test if react apps based in rest services are indexing at googl
 
 	docker-compose up compiler-app && docker-compose up compiler-api && docker-compose build build
 
+Running the builded image
+
+	docker run --hostname react-seo.herokuapp.com -e HOSTNAMES=us-east-1-a.route.herokuapp.com --rm defreitas/react-seo:1.0
+
+
 #### Developing
 
 Running containers
