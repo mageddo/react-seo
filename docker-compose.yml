@@ -32,12 +32,14 @@ services:
     container_name: react-seo-api
     command: tail -f /dev/null
     hostname: api.react-seo.dev
+    network_mode: bridge
 
   react-seo-app:
     extends: compiler-app
     container_name: react-seo-app
     hostname: app.react-seo.dev
     command: tail -f /dev/null
+    network_mode: bridge
 
   react-seo-reverse-proxy:
     container_name: react-seo-reverse-proxy
@@ -48,6 +50,8 @@ services:
     hostname: nginx.mageddo
     environment:
       - HOSTNAMES=react-seo.herokuapp.com
+    entrypoint: /app/entrypoint.sh
     volumes:
+      - ./nginx:/app
       - ./nginx/sites-enabled/:/etc/nginx/conf.d
     network_mode: bridge
