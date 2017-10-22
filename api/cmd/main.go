@@ -11,9 +11,14 @@ import (
 
 func main(){
 
-	http.HandleFunc("/api/", func(res http.ResponseWriter, req *http.Request){
+	http.HandleFunc("/", func(res http.ResponseWriter, req *http.Request){
 		log.Printf("m=/, path=%s", req.URL.Path)
 		http.FileServer(http.Dir("./public")).ServeHTTP(res, req)
+	})
+
+	http.HandleFunc("/page/", func(res http.ResponseWriter, req *http.Request){
+		log.Printf("m=/, path=%s", req.URL.Path)
+		http.StripPrefix(req.URL.Path, http.FileServer(http.Dir("./public"))).ServeHTTP(res, req)
 	})
 
 	http.HandleFunc("/api/students", func(w http.ResponseWriter, r *http.Request) {

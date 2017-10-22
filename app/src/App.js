@@ -44,7 +44,7 @@ class App extends Component {
 		console.debug('app=componentDidMount, state=%o', window.history.state);
 		Router.start({
 			page: "Student",
-			path: "/students"
+			path: "/page/students"
 		});
 	}
 
@@ -68,9 +68,9 @@ class App extends Component {
 					</div>
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
-							<li className="active"><Link href="/students" page="Student" >Students</Link></li>
-							<li><Link href="/schools" page="School" >Schools</Link></li>
-							<li><Link href="/posts" page="Articles" >Posts</Link></li>
+							<li className="active"><Link href="/page/students" page="Student" >Students</Link></li>
+							<li><Link href="/page/schools" page="School" >Schools</Link></li>
+							<li><Link href="/page/posts" page="Articles" >Posts</Link></li>
 						</ul>
 					</div>
 				</div>

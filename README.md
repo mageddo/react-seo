@@ -6,12 +6,18 @@ This is a POC to test if react apps based in rest services are indexing at googl
 
 #### Developing
 
-Run the api 
+Running containers
 
-	$ docker-compose up -d react-seo-api && docker exec -it react-seo-api bash
+	docker-compose up -d react-seo-api react-seo-app react-seo-reverse-proxy
+
+Attaching in containers to manage servers
+
+API
+
+	$ docker exec -it react-seo-api bash
 	go run cmd/main.go
 
-Run the app
+APP
 
-	$ docker-compose up -d react-seo-app && docker exec -it bash
-	npm install && npm start
+	$ docker exec -it bash
+	cd app && npm install && npm start

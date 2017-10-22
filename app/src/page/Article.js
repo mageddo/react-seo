@@ -20,7 +20,7 @@ export default class Articles extends Component {
 		return (
 			<ul>{
 				this.state.items.map((v, k) => {
-					return <li key={k} ><Link href={"/article/" + v.id} data={{id: v.id}} page="Article">{v.title}</Link></li>
+					return <li key={k} ><Link href={"/page/article/" + v.id} data={{id: v.id}} page="Article">{v.title}</Link></li>
 				})
 			}</ul>
 		)
