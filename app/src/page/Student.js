@@ -20,7 +20,7 @@ export default class Student extends Component {
 		return (
 			<ul>{
 				this.state.students.map((v, k) => {
-					return <li key={k} ><Link page="StudentDetails" data={v} href={"/page/student/" + v.name}>{v.name}</Link></li>
+					return <li key={k} ><Link href={"/page/student/" + v.name}>{v.name}</Link></li>
 				})
 			}</ul>
 		)

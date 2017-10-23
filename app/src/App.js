@@ -14,20 +14,20 @@ class App extends Component {
 			page: 'Loading...'
 		}
 		Router.register(this, {
-			'Student': (state) => {
+			'^/page/students$': (state) => {
 				this.setState({page: <Student />})
 			},
-			'School': (state) => {
+			'^/page/schools$': (state) => {
 				this.setState({page: <School />})
 			},
 			'StudentDetails': (data) => {
 				this.setState({page: <StudentDetails student={data} />})
 			},
-			'Articles': (data) => {
+			'^/page/posts$': (data) => {
 				this.setState({page: <Articles />})
 			},
-			'Article': (data) => {
-				this.setState({page: <Article id={data.id} />})
+			'^/page/posts/(\\d+)$': (data) => {
+				this.setState({page: <Article id={data.pathVar[0]} />})
 			}
 		});
 		console.debug('app=constructor');
@@ -42,10 +42,7 @@ class App extends Component {
 
 	componentDidMount(){
 		console.debug('app=componentDidMount, state=%o', window.history.state);
-		Router.start({
-			page: "Student",
-			path: "/page/students"
-		});
+		Router.start();
 	}
 
 	loadPage(page){
@@ -64,13 +61,13 @@ class App extends Component {
 							<span className="icon-bar"></span>
 							<span className="icon-bar"></span>
 						</button>
-						<Link className="navbar-brand" href="/" page="Student" >React SEO</Link>
+						<Link className="navbar-brand" href="/" >React SEO</Link>
 					</div>
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
-							<li className="active"><Link href="/page/students" page="Student" >Students</Link></li>
-							<li><Link href="/page/schools" page="School" >Schools</Link></li>
-							<li><Link href="/page/posts" page="Articles" >Posts</Link></li>
+							<li className="active"><Link href="/page/students" >Students</Link></li>
+							<li><Link href="/page/schools" >Schools</Link></li>
+							<li><Link href="/page/posts" >Posts</Link></li>
 						</ul>
 					</div>
 				</div>
