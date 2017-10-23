@@ -14,20 +14,26 @@ class App extends Component {
 			page: 'Loading...'
 		}
 		Router.register(this, {
+			'^/$': (state) => {
+				this.setState({page: <Student />})
+			},
 			'^/page/students$': (state) => {
 				this.setState({page: <Student />})
 			},
 			'^/page/schools$': (state) => {
 				this.setState({page: <School />})
 			},
-			'StudentDetails': (data) => {
-				this.setState({page: <StudentDetails student={data} />})
+			'^/page/student/(\\d+)$': (state) => {
+				this.setState({page: <StudentDetails student={state.data} />})
 			},
-			'^/page/posts$': (data) => {
+			'^/page/posts$': (state) => {
 				this.setState({page: <Articles />})
 			},
-			'^/page/posts/(\\d+)$': (data) => {
-				this.setState({page: <Article id={data.pathVar[0]} />})
+			'^/page/posts/(\\d+)$': (state) => {
+				this.setState({page: <Article id={state.pathVar[0]} />})
+			},
+			'404': (state) => {
+				this.setState({page: 'Not Found'});
 			}
 		});
 		console.debug('app=constructor');
@@ -36,8 +42,9 @@ class App extends Component {
 	/**
 	 * Router try to invoke the right handler then call this method to reponse a feedback
 	 */ 
-	load(state, loaded){
-		console.debug('m=App.load, state=%o, loaded=%s', state, loaded);
+	load(state){
+		console.debug('m=App.load, state=%o', state);
+		this.setState({page: state.page});
 	}
 
 	componentDidMount(){
