@@ -36,10 +36,15 @@ export class StudentDetails extends Component {
 		this.student = props.student;
 	}
 
+	showDetails(){
+		console.info("m=showdetails");
+//		var x = console.info.nothing();
+	}
+
 	render(){
 		return (
 			<div>
-				<h1>Details about: {this.student.name}</h1>
+				<h1 onClick={this.showDetails}>Details about: {this.student.name}</h1>
 				<ul>
 					<li>Age: {this.student.age}</li>
 				</ul>

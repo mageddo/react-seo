@@ -20,11 +20,11 @@ Attaching in containers to manage servers
 API
 
 	$ docker exec -it react-seo-api bash
-	go run cmd/main.go
+	go run api/cmd/main.go
 
 APP
 
-	$ docker exec -it bash
+	$ docker exec -it react-seo-app bash
 	cd app && npm install && npm start
 
 #### Running it in heroku

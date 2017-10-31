@@ -6,6 +6,20 @@ import Student, {StudentDetails} from './page/Student.js';
 import School from './page/School.js';
 import Articles, {Article} from './page/Article.js';
 
+window.onerror = function (errorMsg, url, lineNumber) {
+	console.warn('Error: %s, Script: %s, Line: %s, Arguments: %o, ArgumentsAsJson: %s', errorMsg, url, lineNumber, arguments, JSON.stringify(arguments));
+	fetch(window.Locator.API.solve('/errors'), { method: 'POST', body: JSON.stringify(arguments) })
+	.then(function(response) {
+	console.debug('m=onerror, result=%o', response);
+		if(response.status >= 300){
+			return new Promise((s, r) => r('Error at load'));
+		}
+		return response.text();
+	}).then(function(r) {
+		console.debug('m=onerror, processing=%o', r);
+	});
+}
+
 class App extends Component {
 
 	constructor(){
