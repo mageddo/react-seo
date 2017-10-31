@@ -31,7 +31,7 @@ APP
 
 Generating binaries
 
-	docker-compose build compiler-api compiler-app
+	docker-compose up compiler-api compiler-app
 
 Uploading
 

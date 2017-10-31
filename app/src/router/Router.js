@@ -92,7 +92,7 @@ export default class Router {
 			var key = keys[i], pathVar;
 			if((pathVar = new RegExp(key).exec(state.path)) != null){
 				console.debug('m=invoke, status=invoking, state=%s, key=%s, pathVar=%o', state, key, JSON.stringify(pathVar));
-				var data = Object.assign({}, state, {pathVar: pathVar.splice(1), query: new URLSearchParams(state.queryString)});
+				var data = Object.assign({}, state, {pathVar: pathVar.splice(1), query: parseQuery(state.queryString)});
 				map[key].call(data, data);
 				return data;
 			}
@@ -108,6 +108,16 @@ export default class Router {
 	 */
 	static start(){
 		Router.getAndLoad(window.history.state);
+	}
+
+	function parseQuery(queryString) {
+		var query = {};
+		var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+		for (var i = 0; i < pairs.length; i++) {
+			var pair = pairs[i].split('=');
+			query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+		}
+		return query;
 	}
 
 
