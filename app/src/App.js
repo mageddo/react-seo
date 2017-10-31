@@ -6,6 +6,7 @@ import Student, {StudentDetails} from './page/Student.js';
 import School from './page/School.js';
 import Articles, {Article} from './page/Article.js';
 
+//window.addEventListener('error', function (errorMsg, url, lineNumber) {
 window.onerror = function (errorMsg, url, lineNumber) {
 	console.warn('Error: %s, Script: %s, Line: %s, Arguments: %o, ArgumentsAsJson: %s', errorMsg, url, lineNumber, arguments, JSON.stringify(arguments));
 	fetch(window.Locator.API.solve('/errors'), { method: 'POST', body: JSON.stringify(arguments) })

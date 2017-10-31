@@ -38,7 +38,7 @@ export class StudentDetails extends Component {
 
 	showDetails(){
 		console.info("m=showdetails");
-//		var x = console.info.nothing();
+		var x = console.info.nothing();
 	}
 
 	render(){

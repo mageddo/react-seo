@@ -29,6 +29,12 @@ APP
 
 #### Running it in heroku
 
+Generating binaries
+
+	docker-compose build compiler-api compiler-app
+
+Uploading
+
 	heroku git:remote -a react-seo
 	heroku login
 	heroku container:login
