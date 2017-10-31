@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"io/ioutil"
 )
 
 func main(){
@@ -21,6 +22,19 @@ func main(){
 		log.Printf("m=/, path=%s", req.URL.Path)
 		http.StripPrefix(req.URL.Path, http.FileServer(http.Dir("./public"))).ServeHTTP(res, req)
 	})
+
+	http.HandleFunc("/api/errors", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case "POST":
+			msg, err := ioutil.ReadAll(r.Body)
+			if err != nil {
+				log.Printf("path=/api/errors, err=%v\n", err)
+			}else{
+				fmt.Printf("body=%s\n", string(msg))
+			}
+		}
+	})
+
 
 	http.HandleFunc("/api/students", func(w http.ResponseWriter, r *http.Request) {
 
