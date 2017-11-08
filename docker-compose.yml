@@ -10,6 +10,7 @@ services:
     working_dir: /go/src/github.com/mageddo/react-seo
     container_name: compiler-api
     command: builder build-api
+    network_mode: bridge
 
   compiler-app:
     container_name: compiler-app
@@ -19,12 +20,14 @@ services:
       - $PWD/:/app
       - $PWD/builder:/bin/builder
     working_dir: /app
+    network_mode: bridge
 
   build: 
     container_name: build
     build:
       context: .
     image: defreitas/react-seo:1.0
+    network_mode: bridge
 
 # Responsible to run images in development environment
   react-seo-api:
@@ -32,14 +35,12 @@ services:
     container_name: react-seo-api
     command: tail -f /dev/null
     hostname: api.react-seo.dev
-    network_mode: bridge
 
   react-seo-app:
     extends: compiler-app
     container_name: react-seo-app
     hostname: app.react-seo.dev
     command: tail -f /dev/null
-    network_mode: bridge
 
   react-seo-reverse-proxy:
     container_name: react-seo-reverse-proxy
