@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "../router/Router.js"
+import { Link } from "react-push-state"
 
 export default class Articles extends Component {
 

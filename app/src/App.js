@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Router, {Link} from './router/Router.js';
+import Router, {Link} from 'react-push-state';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import Student, {StudentDetails} from './page/Student.js';
